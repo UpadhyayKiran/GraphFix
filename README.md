@@ -198,7 +198,7 @@ GraphFix acknowledges the Loc-Bench and LocAgent authors for their public resear
 
 ## License
 
-No repository-wide open-source license has been assigned yet. Copyright remains with the author unless a file states otherwise. Before accepting external contributions or reuse, confirm university policy and the redistribution terms of third-party datasets and models. Dependencies retain their own licenses.
+GraphFix's original source code is licensed under the MIT License. See [LICENSE](LICENSE) for details. Third-party dependencies, datasets, and pretrained models remain subject to their respective licenses.
 
 ## Author
 
