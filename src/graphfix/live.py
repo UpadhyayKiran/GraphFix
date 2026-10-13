@@ -68,6 +68,8 @@ def resolve_default_branch_head(
     timeout_seconds: float = 30.0,
 ) -> tuple[str, str, str]:
     """Resolve the public repository's default branch HEAD exactly once."""
+    if timeout_seconds <= 0:
+        raise ValueError("timeout_seconds must be positive")
     repository = parse_public_github_url(repository_url)
     canonical = f"https://github.com/{repository}.git"
     result = git_runner(
@@ -87,6 +89,7 @@ def resolve_default_branch_head(
 
 def live_input(repository: str, commit: str, title: str, description: str) -> GraphFixInput:
     """Build an inference-only input; this API deliberately has no gold parameter."""
+    repository = parse_public_github_url(f"https://github.com/{repository}")
     issue = "\n\n".join(part.strip() for part in (title, description) if part.strip())
     if not issue:
         raise ValueError("Issue title or description must be non-empty")

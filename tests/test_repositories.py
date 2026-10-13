@@ -141,6 +141,30 @@ def test_existing_checkout_is_reused_without_mutation(tmp_path: Path) -> None:
     assert repeated.resolved_commit == first
 
 
+@pytest.mark.parametrize("change", ["tracked", "untracked"])
+def test_existing_checkout_with_local_changes_is_rejected(
+    tmp_path: Path, change: str
+) -> None:
+    """Verify cached source cannot silently diverge from its recorded commit."""
+    source, first, _second = create_source_repository(tmp_path)
+    manager = manager_for(tmp_path / "cache", source)
+    request = RepositoryRequest(instance_id="fixture-dirty", repo="owner/repo", base_commit=first)
+    initial = manager.reconstruct(request)
+    assert initial.success and initial.checkout_path is not None
+    checkout = Path(initial.checkout_path)
+    if change == "tracked":
+        (checkout / "state.txt").write_text("locally changed\n", encoding="utf-8")
+    else:
+        (checkout / "untracked.txt").write_text("local file\n", encoding="utf-8")
+
+    repeated = manager.reconstruct(request)
+
+    assert not repeated.success
+    assert repeated.failure is not None
+    assert repeated.failure.category == "CHECKOUT_ERROR"
+    assert "local modifications or untracked files" in repeated.failure.message
+
+
 def test_request_is_constructed_only_from_graphfix_input() -> None:
     """Verify request is constructed only from graphfix input."""
     inference_input = GraphFixInput(

@@ -369,6 +369,21 @@ class RepositoryManager:
         try:
             if checkout.exists():
                 resolved = self._run(["-C", str(checkout), "rev-parse", "HEAD"])
+                status = self._run(
+                    ["-C", str(checkout), "status", "--porcelain", "--untracked-files=all"]
+                )
+                if status:
+                    return self._failure(
+                        request,
+                        started,
+                        "CHECKOUT_ERROR",
+                        "Existing checkout contains local modifications or untracked files",
+                        cache_repository=cache_repository,
+                        checkout=checkout,
+                        cache_reused=cache_reused,
+                        fallback_used=fallback_used,
+                        warnings=tuple(warnings),
+                    )
             else:
                 checkout.parent.mkdir(parents=True, exist_ok=True)
                 self._run(["--git-dir", str(cache_repository), "worktree", "prune"])
