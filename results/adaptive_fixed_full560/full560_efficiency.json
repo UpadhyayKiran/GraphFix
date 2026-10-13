@@ -1,0 +1,29 @@
+{
+  "issues": 560,
+  "episodes": 1120,
+  "accepted_steps": 8677,
+  "controller_calls": 10112,
+  "retries": 1435,
+  "validation_failures": 1573,
+  "repeated_action_target_count": 6105,
+  "repeated_action_target_rate": 0.7035841880834389,
+  "new_evidence_count": 1665,
+  "new_evidence_rate": 0.1918865967500288,
+  "stopping": {
+    "explicit_stop": {
+      "count": 233,
+      "rate": 0.2080357142857143
+    },
+    "invalid_response_stop": {
+      "count": 420,
+      "rate": 0.375
+    },
+    "max_steps": {
+      "count": 467,
+      "rate": 0.41696428571428573
+    }
+  },
+  "persisted_localization_runtime_seconds": 35971.87140920016,
+  "mean_runtime_seconds_per_issue": 64.235484659286,
+  "median_runtime_seconds_per_issue": 48.94877290000295
+}

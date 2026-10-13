@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-09T08:55:08.984407Z",
+  "provenance": {
+    "cohort": "results\\localization_benchmark\\evaluation_cohort.json",
+    "cohort_size": 560,
+    "first100_artifacts": "results\\adaptive_navigation_experiments\\fixed_pool_100\\adaptive",
+    "continuation_artifacts": "results\\adaptive_navigation_experiments\\fixed_pool_101_560\\adaptive",
+    "deterministic_baselines": "results\\retrieval_comparison\\full_evaluation",
+    "candidate_pool_location": "adaptive_config.candidate_pool",
+    "configuration": {
+      "candidate_pool": "fixed",
+      "endpoint": "http://127.0.0.1:11434",
+      "max_expanded_candidates": 5,
+      "max_observed_nodes": 8,
+      "max_retries": 2,
+      "max_snippet_chars": 400,
+      "max_steps": 10,
+      "model": "qwen2.5-coder:7b",
+      "provider": "ollama",
+      "seed": 0,
+      "temperature": 0.0,
+      "timeout_seconds": 120.0
+    },
+    "evaluation_methodology": "Gold-free rankings loaded first; gold extracted post hoc with extract_gold_locations; evaluate_rankings and aggregate_metrics applied in frozen cohort order."
+  },
+  "integrity": {
+    "first100_count": 100,
+    "continuation_count": 460,
+    "combined_unique_count": 560,
+    "missing_ids": [],
+    "duplicate_ids": [],
+    "unexpected_ids": []
+  },
+  "first100_regression": {
+    "file_hit_at_1": {
+      "actual": 0.42,
+      "expected_rounded": 0.42,
+      "within_1e-6": true
+    },
+    "file_recall_at_5": {
+      "actual": 0.33645238095238084,
+      "expected_rounded": 0.336452,
+      "within_1e-6": true
+    },
+    "file_recall_at_10": {
+      "actual": 0.4134011544011544,
+      "expected_rounded": 0.413401,
+      "within_1e-6": true
+    },
+    "file_mrr": {
+      "actual": 0.549329365079365,
+      "expected_rounded": 0.549329,
+      "within_1e-6": true
+    },
+    "function_hit_at_1": {
+      "actual": 0.33,
+      "expected_rounded": 0.33,
+      "within_1e-6": true
+    },
+    "function_recall_at_5": {
+      "actual": 0.21309280833545535,
+      "expected_rounded": 0.213093,
+      "within_1e-6": true
+    },
+    "function_recall_at_10": {
+      "actual": 0.28036054876496047,
+      "expected_rounded": 0.280361,
+      "within_1e-6": true
+    },
+    "function_mrr": {
+      "actual": 0.40573412698412703,
+      "expected_rounded": 0.405734,
+      "within_1e-6": true
+    }
+  },
+  "adaptive_fixed_metrics": {
+    "instances": 560,
+    "file_hit_at_1": 0.39464285714285713,
+    "file_recall_at_5": 0.5199730725623583,
+    "file_recall_at_10": 0.6038648603380746,
+    "file_mrr": 0.501988378684807,
+    "function_hit_at_1": 0.34285714285714286,
+    "function_recall_at_5": 0.3850493905566179,
+    "function_recall_at_10": 0.4493964437718434,
+    "function_mrr": 0.42325609410430826
+  },
+  "hybrid_to_adaptive_fixed_deltas": {
+    "file_hit_at_1": 0.0625,
+    "file_recall_at_5": 0.030059523809523758,
+    "file_recall_at_10": 0.0,
+    "file_mrr": 0.05724348072562341,
+    "function_hit_at_1": 0.06071428571428572,
+    "function_recall_at_5": 0.028456072564071733,
+    "function_recall_at_10": 0.0,
+    "function_mrr": 0.04743622448979595
+  },
+  "outcomes": {
+    "definition": "Lower first relevant rank is improved; higher is degraded; equal (including both absent from Top-10) is unchanged. Combined sums the file and function classifications.",
+    "file": {
+      "improved": 73,
+      "unchanged": 469,
+      "degraded": 18
+    },
+    "function": {
+      "improved": 65,
+      "unchanged": 466,
+      "degraded": 29
+    },
+    "combined": {
+      "improved": 138,
+      "unchanged": 935,
+      "degraded": 47
+    }
+  },
+  "efficiency": {
+    "issues": 560,
+    "episodes": 1120,
+    "accepted_steps": 8677,
+    "controller_calls": 10112,
+    "retries": 1435,
+    "validation_failures": 1573,
+    "repeated_action_target_count": 6105,
+    "repeated_action_target_rate": 0.7035841880834389,
+    "new_evidence_count": 1665,
+    "new_evidence_rate": 0.1918865967500288,
+    "stopping": {
+      "explicit_stop": {
+        "count": 233,
+        "rate": 0.2080357142857143
+      },
+      "invalid_response_stop": {
+        "count": 420,
+        "rate": 0.375
+      },
+      "max_steps": {
+        "count": 467,
+        "rate": 0.41696428571428573
+      }
+    },
+    "persisted_localization_runtime_seconds": 35971.87140920016,
+    "mean_runtime_seconds_per_issue": 64.235484659286,
+    "median_runtime_seconds_per_issue": 48.94877290000295
+  }
+}

@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graphfix-local"
+version = "0.1.0"
+description = "Research foundation for graph-guided software issue localization."
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "datasets",
+    "GitPython",
+    "huggingface_hub",
+    "pydantic",
+    "PyYAML",
+    "rich",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pytest",
+    "ruff",
+]
+explorer = [
+    "streamlit",
+]
+dense = [
+    "sentence-transformers",
+]
+neo4j = [
+    "neo4j>=5,<7",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests", "scripts"]
