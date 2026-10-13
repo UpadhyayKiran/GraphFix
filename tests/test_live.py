@@ -65,6 +65,16 @@ def test_url_validation_and_default_head_pinning() -> None:
         parse_public_github_url("https://github.com/example/project/issues/1")
 
 
+def test_live_input_and_head_resolution_reject_invalid_values() -> None:
+    """Verify public API validation fails before repository or network operations."""
+    with pytest.raises(ValueError, match="owner/repository"):
+        live_input("not-a-repository", SHA, "Issue", "Description")
+    with pytest.raises(ValueError, match="positive"):
+        resolve_default_branch_head(
+            "https://github.com/example/project", timeout_seconds=0
+        )
+
+
 def test_generic_live_input_preparation_ranking_and_separate_storage(tmp_path: Path) -> None:
     checkout = tmp_path / "checkout"
     checkout.mkdir()

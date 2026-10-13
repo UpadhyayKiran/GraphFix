@@ -30,12 +30,18 @@ The exact resolved commit is recorded with the result. Presentation-only widget 
 - **Static Graph:** operates on available seed rankings and the parsed repository graph.
 - **Adaptive:** requires the configured local Ollama model. The controller proposes bounded actions; deterministic code validates actions and reranks evidence.
 
+When Adaptive is enabled, GraphFix sends the issue text and bounded repository evidence in its
+prompt to the configured Ollama endpoint. The default endpoint is local (`127.0.0.1`); treat a
+custom or remote endpoint as a data recipient and use it only when its privacy policy is acceptable.
+
 If a dependency is unavailable, the interface reports it and does not present that stage as completed.
 
 ## Safety and scope
 
 - Only public GitHub HTTPS repository URLs are accepted.
 - Commits are resolved and pinned before parsing.
+- Reused checkouts must be clean; GraphFix rejects local modifications and untracked files rather
+  than silently analyzing source that differs from the pinned commit.
 - Target repository code is treated as data and is not executed.
 - The scope is Python file and callable localization, not patch generation.
 - Live mode has no gold labels and makes no benchmark-accuracy claim.

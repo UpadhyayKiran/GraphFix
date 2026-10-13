@@ -113,6 +113,10 @@ The app accepts a public GitHub repository URL, issue title, and issue descripti
 
 Live operation requires network access for a repository not already cached. Dense retrieval additionally requires a compatible local sentence-transformer model. Adaptive navigation requires the configured local Ollama model. Availability is reported in the interface; BM25 remains usable without either model.
 
+Adaptive prompts include the issue text and bounded repository evidence. The default Ollama
+endpoint is local; if you configure a remote endpoint, that endpoint receives this material. See
+the live runbook for the operating and privacy boundaries.
+
 For the ten-stage academic benchmark demonstration with the separately retained frozen artifact collection:
 
 ```powershell
@@ -168,6 +172,7 @@ See [results/README.md](results/README.md), [docs/PHASE1_FINAL_RESULTS.md](docs/
 
 - Exact benchmark instance IDs are versioned, and saved result records retain their base commits.
 - Live runs resolve and record a full commit SHA.
+- Cached live checkouts are accepted only when their tracked and untracked state is clean.
 - Saved artifacts retain configuration and provenance fields.
 - Omitted historical checkouts can be reconstructed from their repository and commit mappings.
 - The public copy contains no virtual environment, downloaded model, complete checkout cache, raw issue text, or Git object mirror.
